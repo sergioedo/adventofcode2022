@@ -1,17 +1,28 @@
 import fs from 'fs'
 
-export const maxElfCalories = (inputFile) => {
+const getCaloriesByElf = (inputFile) => {
     const calories = fs.readFileSync(inputFile, { encoding: 'UTF-8' }).split('\n')
-    let maxCalories = 0
     let currElfCalories = 0
+    const caloriesByElf = []
     for (let i = 0; i < calories.length; i++) {
         const cal = calories[i]
         if (cal.length > 0) { //add calories to current elf
             currElfCalories += Number(cal)
         } else { //next elf
-            if (currElfCalories > maxCalories) maxCalories = currElfCalories
+            caloriesByElf.push(currElfCalories)
             currElfCalories = 0
         }
     }
-    return maxCalories
+    if (currElfCalories) caloriesByElf.push(currElfCalories)
+    return caloriesByElf
+}
+
+export const maxElfCalories = (inputFile) => {
+    const sortedCalories = getCaloriesByElf(inputFile).sort((a, b) => b - a)
+    return sortedCalories[0]
+}
+
+export const top3ElfCalories = (inputFile) => {
+    const sortedCalories = getCaloriesByElf(inputFile).sort((a, b) => b - a)
+    return sortedCalories[0] + sortedCalories[1] + sortedCalories[2]
 }

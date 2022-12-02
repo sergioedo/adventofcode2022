@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { maxElfCalories } from 'day1'
+import { maxElfCalories, top3ElfCalories } from 'day1'
 import fs from 'fs'
 
 test('Test maxElfCalories sample input', () => {
@@ -14,4 +14,11 @@ test('Test maxElfCalories input', () => {
     const expectedOutput = 69836
 
     expect(maxElfCalories(inputFile)).toBe(expectedOutput)
+})
+
+test('Test top3ElfCalories sample input', () => {
+    const inputFile = 'day1.input.sample.txt'
+    const expectedOutput = 45000
+
+    expect(top3ElfCalories(inputFile)).toBe(expectedOutput)
 })
