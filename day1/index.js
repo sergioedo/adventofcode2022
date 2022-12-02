@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 const getCaloriesByElf = (inputFile) => {
     const calories = fs.readFileSync(inputFile, { encoding: 'UTF-8' }).split('\n')
