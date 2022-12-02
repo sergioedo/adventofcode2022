@@ -8,3 +8,10 @@ test('Test sample input', () => {
 
     expect(maxElfCalories(inputFile)).toBe(expectedOutput)
 })
+
+test('Test sample input', () => {
+    const inputFile = 'day1.input.txt'
+    const expectedOutput = 69836
+
+    expect(maxElfCalories(inputFile)).toBe(expectedOutput)
+})
