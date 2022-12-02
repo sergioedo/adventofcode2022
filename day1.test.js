@@ -22,3 +22,10 @@ test('Test top3ElfCalories sample input', () => {
 
     expect(top3ElfCalories(inputFile)).toBe(expectedOutput)
 })
+
+test('Test top3ElfCalories sample', () => {
+    const inputFile = 'day1.input.txt'
+    const expectedOutput = 0
+
+    expect(top3ElfCalories(inputFile)).toBe(expectedOutput)
+})
