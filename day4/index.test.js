@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { findFullContainPairs, fullyContained } from 'day4'
+import { findFullContainPairs, fullyContained, findOverlappedPairs } from 'day4'
 import path from 'path'
 
 
@@ -27,4 +27,18 @@ test('Test findFullContainPairs with input', () => {
     const expectedOutput = 644
 
     expect(findFullContainPairs(inputFile)).toBe(expectedOutput)
+})
+
+test('Test findOverlappedPairs with sample input', () => {
+    const inputFile = path.join('day4', 'input.sample.txt')
+    const expectedOutput = 4
+
+    expect(findOverlappedPairs(inputFile)).toBe(expectedOutput)
+})
+
+test('Test findOverlappedPairs with input', () => {
+    const inputFile = path.join('day4', 'input.txt')
+    const expectedOutput = 926
+
+    expect(findOverlappedPairs(inputFile)).toBe(expectedOutput)
 })
