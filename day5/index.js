@@ -34,6 +34,8 @@ const loadInstructions = (inputFile) => {
         })
 }
 
+const topStacks = (stacks) => stacks.map(stack => stack.slice(-1)).flat().join('')
+
 export const rearrangeStacks = (inputFile) => {
     const stacks = loadStacks(inputFile)
     const instructions = loadInstructions(inputFile)
@@ -45,5 +47,23 @@ export const rearrangeStacks = (inputFile) => {
         }
     })
 
-    return stacks.map(stack => stack.slice(-1)).flat().join('')
+    return topStacks(stacks)
+}
+
+export const rearrangeStacksNewVersion = (inputFile) => {
+    const stacks = loadStacks(inputFile)
+    const instructions = loadInstructions(inputFile)
+
+    instructions.map(instruction => {
+        const moveStack = []
+        for (let i = 0; i < instruction.count; i++) {
+            const crate = stacks[instruction.from - 1].pop()
+            moveStack.push(crate)
+        }
+        moveStack.reverse().map(crate => {
+            stacks[instruction.to - 1].push(crate)
+        })
+    })
+
+    return topStacks(stacks)
 }

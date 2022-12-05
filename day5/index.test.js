@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { loadStacks, rearrangeStacks } from 'day5'
+import { loadStacks, rearrangeStacks, rearrangeStacksNewVersion } from 'day5'
 import path from 'path'
 
 
@@ -26,4 +26,18 @@ test('Test rearrangeStacks with input', () => {
     const expectedOutput = 'FJSRQCFTN'
 
     expect(rearrangeStacks(inputFile)).toBe(expectedOutput)
+})
+
+test('Test rearrangeStacksNewVersion with input sample', () => {
+    const inputFile = path.join('day5', 'input.sample.txt')
+    const expectedOutput = 'MCD'
+
+    expect(rearrangeStacksNewVersion(inputFile)).toBe(expectedOutput)
+})
+
+test('Test rearrangeStacksNewVersion with input', () => {
+    const inputFile = path.join('day5', 'input.txt')
+    const expectedOutput = 'CJVLJQPHS'
+
+    expect(rearrangeStacksNewVersion(inputFile)).toBe(expectedOutput)
 })
