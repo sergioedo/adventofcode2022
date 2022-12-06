@@ -26,5 +26,5 @@ test('Test startMessageIndex with input sample', () => {
 
 test('Test startMessageIndexFromFile with input', () => {
     const inputFile = path.join('day6', 'input.txt')
-    expect(startMessageIndexFromFile(inputFile)).toBe(0)
+    expect(startMessageIndexFromFile(inputFile)).toBe(3697)
 })
