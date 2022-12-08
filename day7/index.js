@@ -32,11 +32,20 @@ export const parseDirectories = (inputFile) => {
     return directories
 }
 
-
-
 export const sumDirectoriesByMaxSize = (inputFile) => {
     const directories = parseDirectories(inputFile)
     return Object.values(directories)
         .filter(size => size <= 100000)
         .reduce((prev, curr) => prev + curr, 0)
 }
+
+export const dirSizeToDelete = (inputFile, totalDiskSize, targetFreeSpace) => {
+    const directories = parseDirectories(inputFile)
+    const usedSpace = directories['/']
+    const freeSpace = totalDiskSize - usedSpace
+    const freeUpSpace = targetFreeSpace - freeSpace
+    const sortedDirs = Object.values(directories)
+        .sort((a, b) => a - b)
+        .filter(size => size >= freeUpSpace)
+    return sortedDirs[0]
+} 

@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { parseDirectories, sumDirectoriesByMaxSize } from 'day7'
+import { parseDirectories, sumDirectoriesByMaxSize, dirSizeToDelete } from 'day7'
 import fs from 'fs'
 import path from 'path'
 
@@ -25,4 +25,16 @@ test('Test sumDirectoriesByMaxSize with input', () => {
     const inputFile = path.join('day7', 'input.txt')
 
     expect(sumDirectoriesByMaxSize(inputFile)).toBe(1611443)
-}) 
+})
+
+test('Test dirSizeToDelete with input sample', () => {
+    const inputFile = path.join('day7', 'input.sample.txt')
+
+    expect(dirSizeToDelete(inputFile, 70000000, 30000000)).toBe(24933642)
+})
+
+test('Test dirSizeToDelete with input', () => {
+    const inputFile = path.join('day7', 'input.txt')
+
+    expect(dirSizeToDelete(inputFile, 70000000, 30000000)).toBe(2086088)
+})
