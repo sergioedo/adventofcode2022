@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest day8"
+    "test": "vitest day9"
   },
   "repository": {
     "type": "git",
