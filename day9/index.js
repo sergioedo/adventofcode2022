@@ -24,18 +24,29 @@ const moveTail = (headPosition, tailPosition) => {
     return tailPosition
 }
 
-export const countTailPositions = (inputFile) => {
+export const countTailPositions = (inputFile, numKnots = 2) => {
     const headMoves = fs.readFileSync(inputFile, { encoding: 'UTF-8' }).split('\n')
-    let headPosition = { x: 0, y: 0 } //start position 
-    let tailPosition = { x: 0, y: 0 } //start position
+    const knots = []
+    for (let i = 0; i < numKnots; i++) {
+        knots.push({ x: 0, y: 0 }) //start position for each knot 
+    }
     const tailPositions = ['0-0']
     headMoves.map(move => {
         const direction = move.split(' ')[0]
         const steps = Number(move.split(' ')[1])
         for (let step = 0; step < steps; step++) {
-            headPosition = moveHead(headPosition, direction)
-            tailPosition = moveTail(headPosition, tailPosition)
-            tailPositions.push(`${tailPosition.x}-${tailPosition.y}`)
+            for (let i = 0; i < numKnots - 1; i++) {
+                let headPosition = knots[i]
+                let tailPosition = knots[i + 1]
+
+                if (i === 0) headPosition = moveHead(headPosition, direction)
+                tailPosition = moveTail(headPosition, tailPosition)
+
+                knots[i] = headPosition
+                knots[i + 1] = tailPosition
+
+                if (i === numKnots - 2) tailPositions.push(`${tailPosition.x}-${tailPosition.y}`)
+            }
         }
     })
     const uniqueTailPositions = [...new Set(tailPositions)];
