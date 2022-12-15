@@ -13,3 +13,15 @@ test('Test monkeyBusiness with input', () => {
 
     expect(monkeyBusiness(inputFile)).toBe(55944)
 })
+
+test('Test monkeyBusiness with input sample, 10K rounds and no damage division', () => {
+    const inputFile = path.join('day11', 'input.sample.txt')
+
+    expect(monkeyBusiness(inputFile, 10000, false)).toBe(2713310158)
+})
+
+test('Test monkeyBusiness with input, 10K rounds and no damage division', () => {
+    const inputFile = path.join('day11', 'input.txt')
+
+    expect(monkeyBusiness(inputFile, 10000, false)).toBe(15117269860)
+})

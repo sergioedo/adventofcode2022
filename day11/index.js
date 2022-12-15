@@ -13,7 +13,7 @@ const getOperation = (operator, value) => {
     return (input) => input
 }
 
-export const monkeyBusiness = (inputFile) => {
+export const monkeyBusiness = (inputFile, numRounds = 20, damageDivision = true) => {
     const input = fs.readFileSync(inputFile, { encoding: 'UTF-8' }).split('\n')
     const monkeys = []
     for (let line = 0; line < input.length; line += 7) {
@@ -36,23 +36,26 @@ export const monkeyBusiness = (inputFile) => {
         })
     }
 
-    for (let round = 1; round <= 20; round++) {
-        console.log(`Round ${round}`)
+    //calculate MCD to apply module on big numbers, that don't affect the results
+    const mcd = monkeys.reduce((prev, curr) => prev * curr.test.divisible, 1)
+
+    for (let round = 1; round <= numRounds; round++) {
+        // console.log(`Round ${round}`)
         for (let monkeyIdx = 0; monkeyIdx < monkeys.length; monkeyIdx++) {
-            console.log(`  Monkey ${monkeyIdx}:`)
+            // console.log(`  Monkey ${monkeyIdx}:`)
             const monkey = monkeys[monkeyIdx]
             for (let itemIdx = 0; itemIdx < monkey.items.length; itemIdx++) {
                 const item = monkey.items[itemIdx]
-                console.log(`    Monkey inspects an item with a worry level of ${item}.`)
+                // console.log(`    Monkey inspects an item with a worry level of ${item}.`)
                 const inspectedItem = monkey.operation(item)
-                console.log(`      Worry level is operated to ${inspectedItem}.`)
-                const worriedItem = Math.floor(inspectedItem / 3)
-                console.log(`      Monkey gets bored with item. Worry level is divided by 3 to ${worriedItem}.`)
+                // console.log(`      Worry level is operated to ${inspectedItem}.`)
+                const worriedItem = damageDivision ? Math.floor(inspectedItem / 3) : inspectedItem % mcd
+                // console.log(`      Monkey gets bored with item. Worry level is divided by 3 to ${worriedItem}.`)
                 const isDivisible = (worriedItem % monkey.test.divisible) === 0
-                console.log(`      Current worry level is ${isDivisible ? '' : 'not'} divisible by ${monkey.test.divisible}.`)
+                // console.log(`      Current worry level is ${isDivisible ? '' : 'not'} divisible by ${monkey.test.divisible}.`)
 
                 const throwToMonkey = isDivisible ? monkey.test.monkeyTrue : monkey.test.monkeyFalse
-                console.log(`      Item with worry level ${worriedItem} is thrown to monkey ${throwToMonkey}.`)
+                // console.log(`      Item with worry level ${worriedItem} is thrown to monkey ${throwToMonkey}.`)
                 monkeys[throwToMonkey].items.push(worriedItem)
                 monkeys[monkeyIdx].inspectedItemsCount++
             }
